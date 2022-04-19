@@ -10,7 +10,7 @@ int sprint = 2;
 
 void init_camera(Camera* camera)
 {
-    camera->position.x = -6.0;
+    camera->position.x = 3.0;
     camera->position.y = 0.0;
     camera->position.z = 1.0;
     camera->rotation.x = 0.0;
@@ -26,9 +26,12 @@ void init_camera(Camera* camera)
 int Collided(float x, float y)
 {
     //külső falak
-    if(x>4.67 || y>5.64 || y>5.64 || x<-4.47 || y<-5.48){
+    if(x>3.90 || y>5.90 || x<-3.90 || y<-5.90 ){
+        return 1;
+    }else if(x<1.0 && x > -1.0){
         return 1;
     }
+
     
     
     return 0;

@@ -3,6 +3,7 @@
 #include <obj/load.h>
 #include <obj/draw.h>
 #include <math.h>
+#include <time.h>
 
 void init_scene(Scene* scene)
 {
@@ -52,9 +53,9 @@ void init_scene(Scene* scene)
     
 
     //TUNNELWALL
-    /*load_model(&(scene->tunnelwall_id), "assets/models/tunnelwall.obj");
+    load_model(&(scene->tunnelwall_id), "assets/models/tunnelwall.obj");
     scene->tunnelwall_id = load_texture("assets/textures/tunnelwall.png");
-    glBindTexture(GL_TEXTURE_2D, scene->tunnelwall_id);*/
+    glBindTexture(GL_TEXTURE_2D, scene->tunnelwall_id);
 
     
 
@@ -244,9 +245,20 @@ void load_ground(Scene scene) {
 void load_train(Scene scene) {
 
     glPushMatrix();
-    glTranslated(0, 0, 0.0);
+    glTranslated(0, -8, 0.0);
     glBindTexture(GL_TEXTURE_2D, scene.train_id);
-    glTranslated(0, 0, 0.0);
+    glTranslated(0, -8, 0.0);
+    double time_taken;
+    clock_t start;
+    start = clock();
+    time_taken = ((double) (start)) / CLOCKS_PER_SEC;
+    //printf("time_taken %lf \n",time_taken);
+    //printf("sceneangle %lf\n",scene.angle);
+    //printf("speed: %lf",scene.angle - (time_taken - 2)
+   
+    glTranslated(0,fmod(time_taken * 20, 30.0),0);      
+    
+    
     draw_model(&(scene.train));
     glPopMatrix();
 }
@@ -327,3 +339,4 @@ void update_scene(Scene* scene, double time)
 {
     scene->angle += 50 * time;
 }
+
