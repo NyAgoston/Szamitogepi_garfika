@@ -7,10 +7,6 @@
 
 void init_scene(Scene* scene)
 {
-    load_model(&(scene->cube), "assets/models/cube.obj");
-    scene->texture_id = load_texture("assets/textures/cube.png");
-    glBindTexture(GL_TEXTURE_2D, scene->texture_id);
-
     //GROUND
     load_model(&(scene->ground), "assets/models/ground.obj");
     scene->ground_id = load_texture("assets/textures/rails.jpg");
@@ -18,7 +14,7 @@ void init_scene(Scene* scene)
 
     //PLATFORM
     load_model(&(scene->platform), "assets/models/platform.obj");
-    scene->platform_id = load_texture("assets/textures/platform.png");
+    scene->platform_id = load_texture("assets/textures/platform.jpg");
     glBindTexture(GL_TEXTURE_2D, scene->platform_id);
 
     //TRAIN
@@ -38,7 +34,7 @@ void init_scene(Scene* scene)
 
     //PILLAR
     load_model(&(scene->pillar), "assets/models/pillar.obj");
-    scene->pillar_id = load_texture("assets/textures/platform.png");
+    scene->pillar_id = load_texture("assets/textures/pillar.png");
     glBindTexture(GL_TEXTURE_2D, scene->pillar_id);
 
     //SIDEWALL
@@ -51,13 +47,15 @@ void init_scene(Scene* scene)
     scene->tunnel_id = load_texture("assets/textures/tunnel.png");
     glBindTexture(GL_TEXTURE_2D, scene->tunnel_id);
     
-
     //TUNNELWALL
-    load_model(&(scene->tunnelwall_id), "assets/models/tunnelwall.obj");
+    load_model(&(scene->tunnelwall), "assets/models/tunnelwall.obj");
     scene->tunnelwall_id = load_texture("assets/textures/tunnelwall.png");
     glBindTexture(GL_TEXTURE_2D, scene->tunnelwall_id);
 
-    
+    //PIGGY
+    load_model(&(scene->piggy), "assets/models/tunnel.obj");
+    scene->piggy_id = load_texture("assets/textures/piggy.jpg");
+    glBindTexture(GL_TEXTURE_2D, scene->piggy_id);
 
     //SKYBOX
     scene->sky_id = load_texture("assets/textures/egbolt.jpg");
@@ -115,7 +113,6 @@ void set_material(const Material* material)
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient_material_color);
     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffuse_material_color);
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular_material_color);
-
     glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, &(material->shininess));
 }
 
@@ -125,7 +122,7 @@ void render_scene(const Scene* scene)
     set_material(&(scene->material));
     set_lighting();
     draw_origin();
-    draw_model(&(scene->cube));
+    
     //TRAIN
     glBindTexture(GL_TEXTURE_2D, scene->train_id);
     load_train(*scene);
@@ -151,8 +148,11 @@ void render_scene(const Scene* scene)
     glBindTexture(GL_TEXTURE_2D, scene->tunnel_id);
     load_tunnel(*scene);
     //TUNNELWALL
-    /*glBindTexture(GL_TEXTURE_2D, scene->tunnelwall_id);
-    load_tunnelwall(*scene);*/
+    glBindTexture(GL_TEXTURE_2D, scene->tunnelwall_id);
+    load_tunnelwall(*scene);
+    //PIGGY
+    glBindTexture(GL_TEXTURE_2D, scene->piggy_id);
+    load_piggy(*scene);
 
     
 
@@ -332,7 +332,16 @@ void load_tunnelwall(Scene scene) {
     draw_model(&(scene.tunnelwall));
     glPopMatrix();
 }
+//PIGGY
+void load_piggy(Scene scene) {
 
+    glPushMatrix();
+    glTranslated(0, 0, 0.0);
+    glBindTexture(GL_TEXTURE_2D, scene.piggy_id);
+    glTranslated(0, 0, 0.0);
+    draw_model(&(scene.piggy));
+    glPopMatrix();
+}
 
 
 void update_scene(Scene* scene, double time)

@@ -8,9 +8,7 @@
 
 typedef struct Scene
 {
-    Model cube;
     Material material;
-    GLuint texture_id;
     //GROUND
     Model ground; 
     GLuint ground_id;  
@@ -41,6 +39,9 @@ typedef struct Scene
     Model tunnelwall;
     GLuint tunnelwall_id;
 
+    //PIGGY
+    Model piggy;
+    GLuint piggy_id;
    
 
 
@@ -89,6 +90,7 @@ void load_sidewall(Scene scene);
 void load_tunnel(Scene scene);
 void load_tunnelwall(Scene scene);
 void load_train(Scene scene);
+void load_piggy(Scene scene);
 
 //SKYBOX
 void load_skybox(Scene scene);
