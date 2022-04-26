@@ -1,6 +1,14 @@
 #include "app.h"
 
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL.h>
+#include <stdio.h>
+#include <string.h>
+#include <GL/glu.h>
+#include <GL/gl.h>
+GLfloat mat_emission[] = {0.0f,0.0f,0.0f,0.0f};
+GLfloat sky_emission[] = {0.0f,0.0f,0.0f,0.0f};
+GLfloat ground_emission[] = {0.0f,0.0f,0.0f,0.0f};
 
 void init_app(App* app, int width, int height)
 {
@@ -106,6 +114,10 @@ void handle_app_events(App* app)
     int x;
     int y;
 
+    glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,mat_emission);
+    glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,ground_emission);
+    glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,sky_emission);
+
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
         case SDL_KEYDOWN:
@@ -135,6 +147,55 @@ void handle_app_events(App* app)
                 printf("Camera X: %f\n", app->camera.position.x);
                 printf("Camera Y: %f\n", app->camera.position.y);
                 printf("Camera Z: %f\n", app->camera.position.z);
+                break;
+            case SDL_SCANCODE_Y:
+                set_spawn_point(&(app->camera));
+                break;
+            case SDL_SCANCODE_R:
+                space_walk(&(app->camera));
+                break;
+            case SDL_SCANCODE_T:
+                teleport_back(&(app->camera));
+                break;
+            case SDL_SCANCODE_F1:
+                if (!app->scene.help_visibility) {
+                    app->scene.help_visibility = true;
+                }else {
+                    app->scene.help_visibility = false;
+                }
+                break;
+            case SDL_SCANCODE_M:
+                if (!app->scene.map_visibility) {
+                    app->scene.map_visibility = true;
+                }else {
+                    app->scene.map_visibility = false;
+                }
+                break;
+            case SDL_SCANCODE_Q:
+                if(mat_emission[0] < 1.0){
+                mat_emission[0] += 0.01;
+                mat_emission[1] += 0.01;
+                mat_emission[2] += 0.01;
+                sky_emission[0] += 0.01;
+                sky_emission[1] += 0.01;
+                sky_emission[2] += 0.01;
+                ground_emission[0] += 0.01;
+                ground_emission[1] += 0.01;
+                ground_emission[2] += 0.01;
+                }
+                break;
+            case SDL_SCANCODE_E:
+                if(mat_emission[0] > -1.0){
+                mat_emission[0] -= 0.01;
+                mat_emission[1] -= 0.01;
+                mat_emission[2] -= 0.01;
+                sky_emission[0] -= 0.01;
+                sky_emission[1] -= 0.01;
+                sky_emission[2] -= 0.01;
+                ground_emission[0] -= 0.01;
+                ground_emission[1] -= 0.01;
+                ground_emission[2] -= 0.01;
+                }
                 break;
             default:
                 break;
@@ -206,6 +267,12 @@ void render_app(App* app)
 
     if (app->camera.is_preview_visible) {
         show_texture_preview();
+    }
+    if (app->scene.help_visibility){   
+        help_function(app->scene.help_id);       
+    }
+    if (app->scene.map_visibility){   
+        map_function(app->scene.map_id);       
     }
 
     SDL_GL_SwapWindow(app->window);

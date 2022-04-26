@@ -50,4 +50,14 @@ void set_camera_side_speed(Camera* camera, double speed);
 //FLY
 void set_camera_vertical_speed(Camera* camera, double speed);
 
+//SPAWN
+void set_spawn_point(Camera* camera);
+
+//SPACEWALK
+void space_walk(Camera* camera);
+
+//TELPORTBACK
+void teleport_back(Camera* camera);
+
+
 #endif /* CAMERA_H */

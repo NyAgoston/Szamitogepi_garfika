@@ -42,9 +42,27 @@ typedef struct Scene
     //PIGGY
     Model piggy;
     GLuint piggy_id;
+
+    //LADDER
+    Model ladder;
+    GLuint ladder_id;
+
+    //UFO
+    Model ufo;
+    GLuint ufo_id;
+
+    //TRAPDOOR
+    Model trapdoor;
+    GLuint trapdoor_id;
+
+    //HELP
+    GLuint help_id;
+    bool help_visibility;
+
+    //MAP
+    GLuint map_id;
+    bool map_visibility;
    
-
-
     GLuint sky_id;
     double angle;
 } Scene;
@@ -91,9 +109,14 @@ void load_tunnel(Scene scene);
 void load_tunnelwall(Scene scene);
 void load_train(Scene scene);
 void load_piggy(Scene scene);
-
+void load_ladder(Scene scene);
+void load_ufo(Scene scene);
+void load_trapdoor(Scene scene);
 //SKYBOX
 void load_skybox(Scene scene);
+
+void help_function(GLuint help_id);
+void map_function(GLuint map_id);
 
 
 
