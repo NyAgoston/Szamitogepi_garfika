@@ -171,6 +171,9 @@ void handle_app_events(App* app)
                     app->scene.map_visibility = false;
                 }
                 break;
+            case SDL_SCANCODE_KP_ENTER: 
+                app->scene.welcome_visibility = false;
+                break;
             case SDL_SCANCODE_Q:
                 if(mat_emission[0] < 1.0){
                 mat_emission[0] += 0.01;
@@ -273,6 +276,9 @@ void render_app(App* app)
     }
     if (app->scene.map_visibility){   
         map_function(app->scene.map_id);       
+    }
+    if (app->scene.welcome_visibility){   
+        welcome_function(app->scene.welcome_id);       
     }
 
     SDL_GL_SwapWindow(app->window);

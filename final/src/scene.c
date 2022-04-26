@@ -9,7 +9,7 @@ void init_scene(Scene* scene)
 {
     //GROUND
     load_model(&(scene->ground), "assets/models/ground.obj");
-    scene->ground_id = load_texture("assets/textures/rails.jpg");
+    scene->ground_id = load_texture("assets/textures/ground.jpg");
     glBindTexture(GL_TEXTURE_2D, scene->ground_id);
 
     //PLATFORM
@@ -80,6 +80,8 @@ void init_scene(Scene* scene)
     scene->help_id = load_texture("assets/textures/help.jpg");
     //MAP
     scene->map_id = load_texture("assets/textures/map.jpg");
+    //WELCOME
+    scene->welcome_id = load_texture("assets/textures/welcome.jpg");
     
     
 
@@ -99,6 +101,7 @@ void init_scene(Scene* scene)
     scene->angle = 0;
     scene->help_visibility = false;
     scene->map_visibility = false;
+    scene->welcome_visibility = true;
 }
 
 void set_lighting()
@@ -186,7 +189,7 @@ void render_scene(const Scene* scene)
     //TRAPDOOR
     glBindTexture(GL_TEXTURE_2D, scene->trapdoor_id);
     load_trapdoor(*scene);
-    
+   
     
 
     
@@ -414,6 +417,8 @@ void load_trapdoor(Scene scene) {
 }
 
 
+
+
 void update_scene(Scene* scene, double time)
 {
     scene->angle += 50 * time;
@@ -463,6 +468,36 @@ void map_function(GLuint map_id) {
 
     glColor3f(1, 1, 1);
     glBindTexture(GL_TEXTURE_2D, map_id);
+
+    glBegin(GL_QUADS);
+    glTexCoord2f(0, 0);
+    glVertex3d(-2, 1.5, -3);
+    glTexCoord2f(1, 0);
+    glVertex3d(2, 1.5, -3);
+    glTexCoord2f(1, 1);
+    glVertex3d(2, -1.5, -3);
+    glTexCoord2f(0, 1);
+    glVertex3d(-2, -1.5, -3);
+    glEnd();
+
+
+    glDisable(GL_COLOR_MATERIAL);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_DEPTH_TEST);
+
+}
+//WELCOME
+void welcome_function(GLuint welcome_id) {
+
+    glDisable(GL_LIGHTING);
+    glDisable(GL_DEPTH_TEST);
+    glEnable(GL_COLOR_MATERIAL);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    glColor3f(1, 1, 1);
+    glBindTexture(GL_TEXTURE_2D, welcome_id);
 
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);
