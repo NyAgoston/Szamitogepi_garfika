@@ -3,6 +3,7 @@
 
 #include "camera.h"
 #include "scene.h"
+#include "train.h"
 
 #include <SDL2/SDL.h>
 
@@ -19,6 +20,7 @@ typedef struct App
     double uptime;
     Camera camera;
     Scene scene;
+    Train train;
 } App;
 
 /**

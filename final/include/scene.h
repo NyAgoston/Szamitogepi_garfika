@@ -30,45 +30,37 @@ typedef struct Scene
     //TUNNEL
     Model tunnel;
     GLuint tunnel_id;
-
     //TRAIN
     Model train;
-    GLuint train_id;
-    
+    GLuint train_id;  
     //TUNELWALL
     Model tunnelwall;
     GLuint tunnelwall_id;
-
     //PIGGY
     Model piggy;
     GLuint piggy_id;
-
     //LADDER
     Model ladder;
     GLuint ladder_id;
-
     //UFO
     Model ufo;
     GLuint ufo_id;
-
     //TRAPDOOR
     Model trapdoor;
     GLuint trapdoor_id;
   
-
     //HELP
     GLuint help_id;
     bool help_visibility;
-
     //MAP
     GLuint map_id;
     bool map_visibility;
-
     //WELCOME
     GLuint welcome_id;
     bool welcome_visibility;
-   
+    //SKYBOX
     GLuint sky_id;
+    
     double angle;
 } Scene;
 
@@ -101,30 +93,24 @@ void render_scene(const Scene* scene);
  * Draw the origin of the world coordinate system.
  */
 void draw_origin();
-
-
-//MODELS
-void load_ground(Scene scene);
-void load_platform(Scene scene);
-void load_ceiling(Scene scene);
-void load_frontwall(Scene scene);
-void load_pillar(Scene scene);
-void load_sidewall(Scene scene);
-void load_tunnel(Scene scene);
-void load_tunnelwall(Scene scene);
-void load_train(Scene scene);
-void load_piggy(Scene scene);
-void load_ladder(Scene scene);
-void load_ufo(Scene scene);
-void load_trapdoor(Scene scene);
-
-//SKYBOX
+/**
+ * Loads the models in.
+ */
+void load_models(Scene *scene);
+/**
+ * Loads the textures in.
+ */
+void load_textures(Scene *scene);
+/**
+ * Fill the space with the models.
+ */
+void load_space(Scene scene);
+/**
+ * Loads the skybox in.
+ */
 void load_skybox(Scene scene);
-
-void help_function(GLuint help_id);
-void map_function(GLuint map_id);
-void welcome_function(GLuint map_id);
-
-
-
+/**
+ * Loads the map/help/wlcome images in.
+ */
+void image_function(GLuint image_id);
 #endif /* SCENE_H */

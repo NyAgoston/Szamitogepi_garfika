@@ -7,84 +7,10 @@
 
 void init_scene(Scene* scene)
 {
-    //GROUND
-    load_model(&(scene->ground), "assets/models/ground.obj");
-    scene->ground_id = load_texture("assets/textures/ground.jpg");
-    glBindTexture(GL_TEXTURE_2D, scene->ground_id);
 
-    //PLATFORM
-    load_model(&(scene->platform), "assets/models/platform.obj");
-    scene->platform_id = load_texture("assets/textures/platform.jpg");
-    glBindTexture(GL_TEXTURE_2D, scene->platform_id);
-
-    //TRAIN
-    load_model(&(scene->train), "assets/models/train.obj");
-    scene->train_id = load_texture("assets/textures/train.jpg");
-    glBindTexture(GL_TEXTURE_2D, scene->train_id);
-
-    //CEILING
-    load_model(&(scene->ceiling), "assets/models/ceiling.obj");
-    scene->ceiling_id = load_texture("assets/textures/ceiling.jpg");
-    glBindTexture(GL_TEXTURE_2D, scene->ceiling_id);
-
-    //FRONTWALL
-    load_model(&(scene->frontwall), "assets/models/frontwall.obj");
-    scene->frontwall_id = load_texture("assets/textures/frontwall.jpg");
-    glBindTexture(GL_TEXTURE_2D, scene->frontwall_id);
-
-    //PILLAR
-    load_model(&(scene->pillar), "assets/models/pillar.obj");
-    scene->pillar_id = load_texture("assets/textures/pillar.jpg");
-    glBindTexture(GL_TEXTURE_2D, scene->pillar_id);
-
-    //SIDEWALL
-    load_model(&(scene->sidewall), "assets/models/sidewall.obj");
-    scene->sidewall_id = load_texture("assets/textures/sidewall.jpg");
-    glBindTexture(GL_TEXTURE_2D, scene->sidewall_id);
-
-    //TUNNEL
-    load_model(&(scene->tunnel), "assets/models/tunnel.obj");
-    scene->tunnel_id = load_texture("assets/textures/tunnel.jpg");
-    glBindTexture(GL_TEXTURE_2D, scene->tunnel_id);
+    load_models(scene);
+    load_textures(scene);
     
-    //TUNNELWALL
-    load_model(&(scene->tunnelwall), "assets/models/tunnelwall.obj");
-    scene->tunnelwall_id = load_texture("assets/textures/tunnelwall.jpg");
-    glBindTexture(GL_TEXTURE_2D, scene->tunnelwall_id);
-
-    //PIGGY
-    load_model(&(scene->piggy), "assets/models/piggy.obj");
-    scene->piggy_id = load_texture("assets/textures/piggy.jpg");
-    glBindTexture(GL_TEXTURE_2D, scene->piggy_id);
-
-    //LADDER
-    load_model(&(scene->ladder), "assets/models/ladder.obj");
-    scene->ladder_id = load_texture("assets/textures/ladder.jpg");
-    glBindTexture(GL_TEXTURE_2D, scene->ladder_id);
-
-    //UFO
-    load_model(&(scene->ufo), "assets/models/ufo.obj");
-    scene->ufo_id = load_texture("assets/textures/ufo.jpg");
-    glBindTexture(GL_TEXTURE_2D, scene->ufo_id);
-
-    //TRAPDOOR
-    load_model(&(scene->trapdoor), "assets/models/trapdoor.obj");
-    scene->trapdoor_id = load_texture("assets/textures/trapdoor.jpg");
-    glBindTexture(GL_TEXTURE_2D, scene->trapdoor_id);
-
-    //SKYBOX
-    scene->sky_id = load_texture("assets/textures/space.jpg");
-    glBindTexture(GL_TEXTURE_2D, scene->sky_id);
-
-    //HELP
-    scene->help_id = load_texture("assets/textures/help.jpg");
-    //MAP
-    scene->map_id = load_texture("assets/textures/map.jpg");
-    //WELCOME
-    scene->welcome_id = load_texture("assets/textures/welcome.jpg");
-    
-    
-
     scene->material.ambient.red = 1.0;
     scene->material.ambient.green = 1.0;
     scene->material.ambient.blue = 1.0;
@@ -99,11 +25,162 @@ void init_scene(Scene* scene)
 
     scene->material.shininess = 1.0;
     scene->angle = 0;
+    
     scene->help_visibility = false;
     scene->map_visibility = false;
     scene->welcome_visibility = true;
 }
 
+void load_models(Scene *scene){
+    load_model(&(scene->ground), "assets/models/ground.obj");
+    load_model(&(scene->platform), "assets/models/platform.obj");
+    //load_model(&(scene->train), "assets/models/train.obj");
+    load_model(&(scene->ceiling), "assets/models/ceiling.obj");
+    load_model(&(scene->frontwall), "assets/models/frontwall.obj");
+    load_model(&(scene->pillar), "assets/models/pillar.obj");
+    load_model(&(scene->sidewall), "assets/models/sidewall.obj");
+    load_model(&(scene->tunnel), "assets/models/tunnel.obj");
+    load_model(&(scene->tunnelwall), "assets/models/tunnelwall.obj");
+    load_model(&(scene->piggy), "assets/models/piggy.obj");
+    load_model(&(scene->ladder), "assets/models/ladder.obj");
+    load_model(&(scene->ufo), "assets/models/ufo.obj");
+    load_model(&(scene->trapdoor), "assets/models/trapdoor.obj");
+
+}
+void load_textures(Scene *scene){
+    scene->ground_id = load_texture("assets/textures/ground.jpg");
+    scene->platform_id = load_texture("assets/textures/platform.jpg");
+    //scene->train_id = load_texture("assets/textures/train.jpg");
+    scene->ceiling_id = load_texture("assets/textures/ceiling.jpg");
+    scene->frontwall_id = load_texture("assets/textures/frontwall.jpg");
+    scene->pillar_id = load_texture("assets/textures/pillar.jpg");
+    scene->sidewall_id = load_texture("assets/textures/sidewall.jpg");
+    scene->tunnel_id = load_texture("assets/textures/tunnel.jpg");
+    scene->tunnelwall_id = load_texture("assets/textures/tunnelwall.jpg");
+    scene->piggy_id = load_texture("assets/textures/piggy.jpg");
+    scene->ladder_id = load_texture("assets/textures/ladder.jpg");
+    scene->ufo_id = load_texture("assets/textures/ufo.jpg");
+    scene->trapdoor_id = load_texture("assets/textures/trapdoor.jpg");
+    scene->sky_id = load_texture("assets/textures/space.jpg");
+
+    scene->help_id = load_texture("assets/textures/help.jpg");
+    scene->map_id = load_texture("assets/textures/map.jpg");
+    scene->welcome_id = load_texture("assets/textures/welcome.jpg");
+
+
+}
+void load_space(Scene scene){
+    //GROUND
+    glPushMatrix();
+    glTranslated(0, 0, 0.0);
+    glBindTexture(GL_TEXTURE_2D, scene.ground_id);
+    glTranslated(0, 0, 0.0);
+    draw_model(&(scene.ground));
+    glPopMatrix();
+
+    //CEILING
+    glPushMatrix();
+    glTranslated(0, 0, 0.0);
+    glBindTexture(GL_TEXTURE_2D, scene.ceiling_id);
+    glTranslated(0, 0, 0.0);
+    draw_model(&(scene.ceiling));
+    glPopMatrix();
+
+    /*TRAIN
+    glPushMatrix();
+    glTranslated(0, -8, 0.0);
+    glBindTexture(GL_TEXTURE_2D, scene.train_id);
+    glTranslated(0, -8, 0.0);
+    double time_taken;
+    clock_t start;
+    start = clock();
+    time_taken = ((double) (start)) / CLOCKS_PER_SEC;
+    glTranslated(0,fmod(time_taken * 20, 30.0),0);      
+    draw_model(&(scene.train));
+    glPopMatrix();*/
+
+    //PLATFORM
+    glPushMatrix();
+    glTranslated(0, 0, 0.0);
+    glBindTexture(GL_TEXTURE_2D, scene.platform_id);
+    glTranslated(0, 0, 0.0);
+    draw_model(&(scene.platform));
+    glPopMatrix();
+
+    //FRONTWALL
+    glPushMatrix();
+    glTranslated(0, 0, 0.0);
+    glBindTexture(GL_TEXTURE_2D, scene.frontwall_id);
+    glTranslated(0, 0, 0.0);
+    draw_model(&(scene.frontwall));
+    glPopMatrix();
+
+    //PILLAR
+    glPushMatrix();
+    glTranslated(0, 0, 0.0);
+    glBindTexture(GL_TEXTURE_2D, scene.pillar_id);
+    glTranslated(0, 0, 0.0);
+    draw_model(&(scene.pillar));
+    glPopMatrix();
+
+    //SIDEWALL
+    glPushMatrix();
+    glTranslated(0, 0, 0.0);
+    glBindTexture(GL_TEXTURE_2D, scene.sidewall_id);
+    glTranslated(0, 0, 0.0);
+    draw_model(&(scene.sidewall));
+    glPopMatrix();
+
+    //TUNNEL
+    glPushMatrix();
+    glTranslated(0, 0, 0.0);
+    glBindTexture(GL_TEXTURE_2D, scene.tunnel_id);
+    glTranslated(0, 0, 0.0);
+    draw_model(&(scene.tunnel));
+    glPopMatrix();
+
+    //TUNNELWALL
+    glPushMatrix();
+    glTranslated(0, 0, 0.0);
+    glBindTexture(GL_TEXTURE_2D, scene.tunnelwall_id);
+    glTranslated(0, 0, 0.0);
+    draw_model(&(scene.tunnelwall));
+    glPopMatrix();
+
+    //PIGGY
+    glPushMatrix();
+    glTranslated(0, 0, 0.0);
+    glBindTexture(GL_TEXTURE_2D, scene.piggy_id);
+    glTranslated(0, -30, 3.0);
+    glScaled(1,1,1);
+    draw_model(&(scene.piggy));
+    glPopMatrix();
+
+    //LADDER
+    glPushMatrix();
+    glTranslated(0, 0, 0.0);
+    glBindTexture(GL_TEXTURE_2D, scene.ladder_id);
+    glTranslated(0, 0, 0.0);
+    draw_model(&(scene.ladder));
+    glPopMatrix();
+
+    //UFO
+    glPushMatrix();
+    glTranslated(0, 0, 0.0);
+    glBindTexture(GL_TEXTURE_2D, scene.ufo_id);
+    glTranslated(0, 0, 0.0);
+    draw_model(&(scene.ufo));
+    glPopMatrix();
+
+    //TRAPDOOR
+    glPushMatrix();
+    glTranslated(0, 0, 0.0);
+    glBindTexture(GL_TEXTURE_2D, scene.trapdoor_id);
+    glTranslated(0, 0, 0.0);
+    draw_model(&(scene.trapdoor));
+    glPopMatrix();
+
+}
 void set_lighting()
 {
     float ambient_light[] = { 0.0f, 0.0f, 0.0f, 1.0f };
@@ -150,53 +227,10 @@ void render_scene(const Scene* scene)
     set_lighting();
     draw_origin();
     
-    //TRAIN
-    glBindTexture(GL_TEXTURE_2D, scene->train_id);
-    load_train(*scene);
-    //GROUND
-    glBindTexture(GL_TEXTURE_2D, scene->ground_id);
-    load_ground(*scene);
-    //PLATFORM
-    glBindTexture(GL_TEXTURE_2D, scene->platform_id);
-    load_platform(*scene);
-    //CEILING
-    glBindTexture(GL_TEXTURE_2D, scene->ceiling_id);
-    load_ceiling(*scene);
-    //FRONTWALL
-    glBindTexture(GL_TEXTURE_2D, scene->frontwall_id);
-    load_frontwall(*scene);
-    //PILLAR
-    glBindTexture(GL_TEXTURE_2D, scene->pillar_id);
-    load_pillar(*scene);
-    //SIDEWALL
-    glBindTexture(GL_TEXTURE_2D, scene->sidewall_id);
-    load_sidewall(*scene);
-    //TUNNEL
-    glBindTexture(GL_TEXTURE_2D, scene->tunnel_id);
-    load_tunnel(*scene);
-    //TUNNELWALL
-    glBindTexture(GL_TEXTURE_2D, scene->tunnelwall_id);
-    load_tunnelwall(*scene);
-    //PIGGY
-    glBindTexture(GL_TEXTURE_2D, scene->piggy_id);
-    load_piggy(*scene);
-    //LADDER
-    glBindTexture(GL_TEXTURE_2D, scene->ladder_id);
-    load_ladder(*scene);
-    //UFO
-    glBindTexture(GL_TEXTURE_2D, scene->ufo_id);
-    load_ufo(*scene);
-    //TRAPDOOR
-    glBindTexture(GL_TEXTURE_2D, scene->trapdoor_id);
-    load_trapdoor(*scene);
-   
-    
-
-    
-
     //SKYBOX
     glBindTexture(GL_TEXTURE_2D, scene->sky_id);
     load_skybox(*scene);
+    load_space(*scene);
 
 }
 
@@ -270,164 +304,14 @@ void load_skybox(Scene scene) {
 
 }
 
-//GROUND
-void load_ground(Scene scene) {
-
-    glPushMatrix();
-    //glTranslated(0, 0, 0.0);
-    glBindTexture(GL_TEXTURE_2D, scene.ground_id);
-    glTranslated(0, 0, 0.0);
-    draw_model(&(scene.ground));
-    glPopMatrix();
-}
-//TRAIN
-void load_train(Scene scene) {
-
-    glPushMatrix();
-    glTranslated(0, -8, 0.0);
-    glBindTexture(GL_TEXTURE_2D, scene.train_id);
-    glTranslated(0, -8, 0.0);
-    double time_taken;
-    clock_t start;
-    start = clock();
-    time_taken = ((double) (start)) / CLOCKS_PER_SEC;
-    //printf("time_taken %lf \n",time_taken);
-    //printf("sceneangle %lf\n",scene.angle);
-    //printf("speed: %lf",scene.angle - (time_taken - 2)
-   
-    glTranslated(0,fmod(time_taken * 20, 30.0),0);      
-    
-    
-    draw_model(&(scene.train));
-    glPopMatrix();
-}
-//PLATFORM
-void load_platform(Scene scene) {
-
-    glPushMatrix();
-    glTranslated(0, 0, 0.0);
-    glBindTexture(GL_TEXTURE_2D, scene.platform_id);
-    glTranslated(0, 0, 0.0);
-    draw_model(&(scene.platform));
-    glPopMatrix();
-}
-//CEILING
-void load_ceiling(Scene scene) {
-
-    glPushMatrix();
-    glTranslated(0, 0, 0.0);
-    glBindTexture(GL_TEXTURE_2D, scene.ceiling_id);
-    glTranslated(0, 0, 0.0);
-    draw_model(&(scene.ceiling));
-    glPopMatrix();
-}
-//FRONTWALL
-void load_frontwall(Scene scene) {
-
-    glPushMatrix();
-    glTranslated(0, 0, 0.0);
-    glBindTexture(GL_TEXTURE_2D, scene.frontwall_id);
-    glTranslated(0, 0, 0.0);
-    draw_model(&(scene.frontwall));
-    glPopMatrix();
-}
-//PILLAR
-void load_pillar(Scene scene) {
-
-    glPushMatrix();
-    glTranslated(0, 0, 0.0);
-    glBindTexture(GL_TEXTURE_2D, scene.pillar_id);
-    glTranslated(0, 0, 0.0);
-    draw_model(&(scene.pillar));
-    glPopMatrix();
-}
-//SIDEWALL
-void load_sidewall(Scene scene) {
-
-    glPushMatrix();
-    glTranslated(0, 0, 0.0);
-    glBindTexture(GL_TEXTURE_2D, scene.sidewall_id);
-    glTranslated(0, 0, 0.0);
-    draw_model(&(scene.sidewall));
-    glPopMatrix();
-}
-//TUNNEL
-void load_tunnel(Scene scene) {
-
-    glPushMatrix();
-    glTranslated(0, 0, 0.0);
-    glBindTexture(GL_TEXTURE_2D, scene.tunnel_id);
-    glTranslated(0, 0, 0.0);
-    draw_model(&(scene.tunnel));
-    glPopMatrix();
-}
-//TUNNELWALL
-void load_tunnelwall(Scene scene) {
-
-    glPushMatrix();
-    glTranslated(0, 0, 0.0);
-    glBindTexture(GL_TEXTURE_2D, scene.tunnelwall_id);
-    glTranslated(0, 0, 0.0);
-    draw_model(&(scene.tunnelwall));
-    glPopMatrix();
-}
-//PIGGY
-void load_piggy(Scene scene) {
-
-    glPushMatrix();
-    glTranslated(0, 0, 0.0);
-    glBindTexture(GL_TEXTURE_2D, scene.piggy_id);
-    glTranslated(0, -30, 3.0);
-    glScaled(1,1,1);
-    //glRotatef(scene.angle,0,0,1);
-    draw_model(&(scene.piggy));
-    glPopMatrix();
-}
-//LADDER
-void load_ladder(Scene scene) {
-
-    glPushMatrix();
-    glTranslated(0, 0, 0.0);
-    glBindTexture(GL_TEXTURE_2D, scene.ladder_id);
-    glTranslated(0, 0, 0.0);
-    draw_model(&(scene.ladder));
-    glPopMatrix();
-}
-
-//UFO
-void load_ufo(Scene scene) {
-
-    glPushMatrix();
-    glTranslated(0, 0, 0.0);
-    glBindTexture(GL_TEXTURE_2D, scene.ufo_id);
-    glTranslated(0, 0, 0.0);
-    draw_model(&(scene.ufo));
-    glPopMatrix();
-}
-
-//TRAPDOOR
-void load_trapdoor(Scene scene) {
-
-    glPushMatrix();
-    glTranslated(0, 0, 0.0);
-    glBindTexture(GL_TEXTURE_2D, scene.trapdoor_id);
-    glTranslated(0, 0, 0.0);
-    draw_model(&(scene.trapdoor));
-    glPopMatrix();
-}
-
-
-
-
 void update_scene(Scene* scene, double time)
 {
     scene->angle += 50 * time;
-}
-
+    //printf("%lf \n",scene->angle);
     
-
+}
 //HELP
-void help_function(GLuint help_id) {
+void image_function(GLuint image_id) {
 
     glDisable(GL_LIGHTING);
     glDisable(GL_DEPTH_TEST);
@@ -437,67 +321,7 @@ void help_function(GLuint help_id) {
     glLoadIdentity();
 
     glColor3f(1, 1, 1);
-    glBindTexture(GL_TEXTURE_2D, help_id);
-
-    glBegin(GL_QUADS);
-    glTexCoord2f(0, 0);
-    glVertex3d(-2, 1.5, -3);
-    glTexCoord2f(1, 0);
-    glVertex3d(2, 1.5, -3);
-    glTexCoord2f(1, 1);
-    glVertex3d(2, -1.5, -3);
-    glTexCoord2f(0, 1);
-    glVertex3d(-2, -1.5, -3);
-    glEnd();
-
-
-    glDisable(GL_COLOR_MATERIAL);
-    glEnable(GL_LIGHTING);
-    glEnable(GL_DEPTH_TEST);
-
-}
-//MAP
-void map_function(GLuint map_id) {
-
-    glDisable(GL_LIGHTING);
-    glDisable(GL_DEPTH_TEST);
-    glEnable(GL_COLOR_MATERIAL);
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
-    glColor3f(1, 1, 1);
-    glBindTexture(GL_TEXTURE_2D, map_id);
-
-    glBegin(GL_QUADS);
-    glTexCoord2f(0, 0);
-    glVertex3d(-2, 1.5, -3);
-    glTexCoord2f(1, 0);
-    glVertex3d(2, 1.5, -3);
-    glTexCoord2f(1, 1);
-    glVertex3d(2, -1.5, -3);
-    glTexCoord2f(0, 1);
-    glVertex3d(-2, -1.5, -3);
-    glEnd();
-
-
-    glDisable(GL_COLOR_MATERIAL);
-    glEnable(GL_LIGHTING);
-    glEnable(GL_DEPTH_TEST);
-
-}
-//WELCOME
-void welcome_function(GLuint welcome_id) {
-
-    glDisable(GL_LIGHTING);
-    glDisable(GL_DEPTH_TEST);
-    glEnable(GL_COLOR_MATERIAL);
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
-    glColor3f(1, 1, 1);
-    glBindTexture(GL_TEXTURE_2D, welcome_id);
+    glBindTexture(GL_TEXTURE_2D, image_id);
 
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0);

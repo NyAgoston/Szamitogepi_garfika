@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "load.h": "c",
+        "scene.h": "c"
+    }
+}

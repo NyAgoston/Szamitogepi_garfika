@@ -6,6 +6,7 @@
 #include <string.h>
 #include <GL/glu.h>
 #include <GL/gl.h>
+//LIGHTING
 GLfloat mat_emission[] = {0.0f,0.0f,0.0f,0.0f};
 GLfloat sky_emission[] = {0.0f,0.0f,0.0f,0.0f};
 GLfloat ground_emission[] = {0.0f,0.0f,0.0f,0.0f};
@@ -50,6 +51,8 @@ void init_app(App* app, int width, int height)
 
     init_camera(&(app->camera));
     init_scene(&(app->scene));
+    //Train
+    init_train(&(app->train));
 
     app->is_running = true;
 }
@@ -256,6 +259,8 @@ void update_app(App* app)
 
     update_camera(&(app->camera), elapsed_time);
     update_scene(&(app->scene),elapsed_time);
+    //Train
+    update_train(&(app->train),elapsed_time);
 }
 
 void render_app(App* app)
@@ -266,19 +271,20 @@ void render_app(App* app)
     glPushMatrix();
     set_view(&(app->camera));
     render_scene(&(app->scene));
+    render_train(&(app->train));
     glPopMatrix();
 
     if (app->camera.is_preview_visible) {
         show_texture_preview();
     }
     if (app->scene.help_visibility){   
-        help_function(app->scene.help_id);       
+        image_function(app->scene.help_id);       
     }
     if (app->scene.map_visibility){   
-        map_function(app->scene.map_id);       
+        image_function(app->scene.map_id);       
     }
     if (app->scene.welcome_visibility){   
-        welcome_function(app->scene.welcome_id);       
+        image_function(app->scene.welcome_id);       
     }
 
     SDL_GL_SwapWindow(app->window);
