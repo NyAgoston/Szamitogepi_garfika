@@ -1,11 +1,8 @@
 #include "app.h"
 
 #include <SDL2/SDL_image.h>
-#include <SDL2/SDL.h>
-#include <stdio.h>
-#include <string.h>
-#include <GL/glu.h>
-#include <GL/gl.h>
+static int counter = 0;
+static double pig_speed = 10;
 //LIGHTING
 GLfloat mat_emission[] = {0.0f,0.0f,0.0f,0.0f};
 GLfloat sky_emission[] = {0.0f,0.0f,0.0f,0.0f};
@@ -25,7 +22,7 @@ void init_app(App* app, int width, int height)
     }
 
     app->window = SDL_CreateWindow(
-        "Metro",
+        "Cube!",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         width, height,
         SDL_WINDOW_OPENGL);
@@ -53,6 +50,9 @@ void init_app(App* app, int width, int height)
     init_scene(&(app->scene));
     //Train
     init_train(&(app->train));
+    //Missile
+    init_missile(&(app->missile));
+    
 
     app->is_running = true;
 }
@@ -128,6 +128,12 @@ void handle_app_events(App* app)
             case SDL_SCANCODE_ESCAPE:
                 app->is_running = false;
                 break;
+            case SDL_SCANCODE_B:
+                if (app->missile.is_explosion)
+                {
+                    app->is_running = false;
+                }
+                break;
             case SDL_SCANCODE_W:
                 set_camera_speed(&(app->camera), 3);
                 break;
@@ -160,11 +166,27 @@ void handle_app_events(App* app)
             case SDL_SCANCODE_T:
                 teleport_back(&(app->camera));
                 break;
+            case SDL_SCANCODE_P:
+                app->scene.easter_egg_P = true;
+                break;
+            case SDL_SCANCODE_I:
+                app->scene.easter_egg_I = true;
+                break;
+            case SDL_SCANCODE_G:
+                app->scene.easter_egg_G = true;
+                break;
             case SDL_SCANCODE_F1:
                 if (!app->scene.help_visibility) {
                     app->scene.help_visibility = true;
                 }else {
                     app->scene.help_visibility = false;
+                }
+                break;
+            case SDL_SCANCODE_U:
+                if (!app->scene.pig_spin) {
+                    app->scene.pig_spin = true;
+                }else {
+                    app->scene.pig_spin = false;
                 }
                 break;
             case SDL_SCANCODE_M:
@@ -174,8 +196,44 @@ void handle_app_events(App* app)
                     app->scene.map_visibility = false;
                 }
                 break;
-            case SDL_SCANCODE_KP_ENTER: 
+            case SDL_SCANCODE_K:
+                if (app->train.is_moveing) {
+                    app->train.is_moveing = false;
+                }else {
+                    app->train.is_moveing = true;
+                }
+                break;
+            case SDL_SCANCODE_J:
+                if (!app->scene.ufo_spin) {
+                    app->scene.ufo_spin = true;
+                }else {
+                    app->scene.ufo_spin = false;
+                }
+                break;
+            case SDL_SCANCODE_V:
+                if (app->scene.easter_egg_P || app->scene.easter_egg_I || app->scene.easter_egg_G)
+                {
+                    if (!app->missile.is_moveing) {
+                        app->missile.is_moveing = true;
+                    }
+                }                
+                break;
+            case SDL_SCANCODE_L:
+                if(glIsEnabled(GL_FOG)){
+				glDisable(GL_FOG);
+				}
+				else{
+				glEnable(GL_FOG);
+				}
+				break;
+            case SDL_SCANCODE_C: 
                 app->scene.welcome_visibility = false;
+                break;
+            case SDL_SCANCODE_KP_PLUS: 
+                pig_speed += 1;
+                break;
+            case SDL_SCANCODE_KP_MINUS: 
+                pig_speed -= 1;
                 break;
             case SDL_SCANCODE_Q:
                 if(mat_emission[0] < 1.0){
@@ -253,6 +311,12 @@ void update_app(App* app)
     double current_time;
     double elapsed_time;
 
+    double wait_time_train;
+
+    double wait_time_pig;
+    double current_wait_pig;
+    
+
     current_time = (double)SDL_GetTicks() / 1000;
     elapsed_time = current_time - app->uptime;
     app->uptime = current_time;
@@ -260,7 +324,30 @@ void update_app(App* app)
     update_camera(&(app->camera), elapsed_time);
     update_scene(&(app->scene),elapsed_time);
     //Train
-    update_train(&(app->train),elapsed_time);
+    if(app->train.is_moveing)
+    {
+        update_train(&(app->train),elapsed_time - wait_time_train);
+    }else{
+        wait_time_train = (double)SDL_GetTicks() / 1000;
+    }
+    //Missile
+    if (app->missile.is_moveing)
+    {
+        update_missile(&(app->missile),elapsed_time);
+        counter+= 1;
+        
+    }
+    //PIG
+    if (!app->scene.pig_spin)
+    {
+        wait_time_pig = (double)SDL_GetTicks() / 1000;
+    }else{
+        update_pig_spin(&(app->scene),pig_speed,elapsed_time - wait_time_pig);
+    }
+    
+    
+       
+   
 }
 
 void render_app(App* app)
@@ -272,8 +359,9 @@ void render_app(App* app)
     set_view(&(app->camera));
     render_scene(&(app->scene));
     render_train(&(app->train));
+    render_missile(&(app->missile));
     glPopMatrix();
-
+    
     if (app->camera.is_preview_visible) {
         show_texture_preview();
     }
@@ -286,6 +374,12 @@ void render_app(App* app)
     if (app->scene.welcome_visibility){   
         image_function(app->scene.welcome_id);       
     }
+    if (counter >= 350)
+    {
+        image_function(app->scene.boom_id);
+        app->missile.is_explosion = true;
+    }
+    
 
     SDL_GL_SwapWindow(app->window);
 }

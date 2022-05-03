@@ -13,6 +13,8 @@ typedef struct Train{
 
     double speed;
 
+    bool is_moveing;
+
 }Train;
 
 void init_train(Train *train);
@@ -24,5 +26,6 @@ void render_train(const Train *train);
 void load_train_model(Train *train);
 
 void load_train(Train train);
+
 
 #endif

@@ -4,6 +4,7 @@
 #include "camera.h"
 #include "scene.h"
 #include "train.h"
+#include "missile.h"
 
 #include <SDL2/SDL.h>
 
@@ -21,6 +22,7 @@ typedef struct App
     Camera camera;
     Scene scene;
     Train train;
+    Missile missile;
 } App;
 
 /**

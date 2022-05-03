@@ -45,8 +45,6 @@ void set_camera_speed(Camera* camera, double speed);
  * Set the speed of left and right side steps.
  */
 void set_camera_side_speed(Camera* camera, double speed);
-
-
 //FLY
 void set_camera_vertical_speed(Camera* camera, double speed);
 
@@ -58,6 +56,5 @@ void space_walk(Camera* camera);
 
 //TELPORTBACK
 void teleport_back(Camera* camera);
-
 
 #endif /* CAMERA_H */

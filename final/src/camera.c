@@ -10,8 +10,8 @@ int sprint = 2;
 
 void init_camera(Camera* camera)
 {
-    camera->position.x = 3.0;
-    camera->position.y = 0.0;
+    camera->position.x = 2.0;
+    camera->position.y = 2.0;
     camera->position.z = 1.0;
     camera->rotation.x = 0.0;
     camera->rotation.y = 0.0;
@@ -162,7 +162,6 @@ void set_camera_side_speed(Camera* camera, double speed)
 {
     camera->speed.x = speed;
 }
-
 //FLY
 void set_camera_vertical_speed(Camera* camera, double speed){
     camera->position.z += speed;
@@ -187,8 +186,6 @@ void teleport_back(Camera* camera){
     camera->position.y = 0;
     camera->position.z = 4.6; 
 }
-
-
 
 void show_texture_preview()
 {

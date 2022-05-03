@@ -9,46 +9,32 @@
 typedef struct Scene
 {
     Material material;
-    //GROUND
-    Model ground; 
-    GLuint ground_id;  
-    //PLATFORMS
-    Model platform;
-    GLuint platform_id;
-    //CEILING
-    Model ceiling;
-    GLuint ceiling_id;
-    //FRONTWALL
-    Model frontwall;
-    GLuint frontwall_id;
-    //PILLAR
-    Model pillar;
-    GLuint pillar_id;
-    //SIDEWALL
-    Model sidewall;
-    GLuint sidewall_id;
-    //TUNNEL
-    Model tunnel;
-    GLuint tunnel_id;
-    //TRAIN
-    Model train;
-    GLuint train_id;  
-    //TUNELWALL
-    Model tunnelwall;
-    GLuint tunnelwall_id;
-    //PIGGY
-    Model piggy;
-    GLuint piggy_id;
-    //LADDER
-    Model ladder;
-    GLuint ladder_id;
-    //UFO
+    
     Model ufo;
+    Model platform;
+    Model ladder;
+    Model sidewall;
+    Model piggy;
+
     GLuint ufo_id;
-    //TRAPDOOR
-    Model trapdoor;
-    GLuint trapdoor_id;
-  
+    GLuint platform_id;
+    GLuint ladder_id;
+    GLuint sidewall_id;
+    GLuint piggy_id;
+    
+    GLuint sky_id;
+
+    double angle;
+    double pig_speed;
+
+    bool ufo_spin;
+    bool pig_spin;
+
+    bool easter_egg_P;
+    bool easter_egg_I;
+    bool easter_egg_G;
+    
+    
     //HELP
     GLuint help_id;
     bool help_visibility;
@@ -58,10 +44,8 @@ typedef struct Scene
     //WELCOME
     GLuint welcome_id;
     bool welcome_visibility;
-    //SKYBOX
-    GLuint sky_id;
-    
-    double angle;
+    //BOOM
+    GLuint boom_id;
 } Scene;
 
 /**
@@ -93,7 +77,13 @@ void render_scene(const Scene* scene);
  * Draw the origin of the world coordinate system.
  */
 void draw_origin();
+
 /**
+ * Loads the skybox in.
+ */
+void load_skybox(Scene scene);
+
+/*
  * Loads the models in.
  */
 void load_models(Scene *scene);
@@ -106,11 +96,12 @@ void load_textures(Scene *scene);
  */
 void load_space(Scene scene);
 /**
- * Loads the skybox in.
- */
-void load_skybox(Scene scene);
-/**
  * Loads the map/help/wlcome images in.
  */
 void image_function(GLuint image_id);
+
+void update_pig_spin(Scene* scene,double speed,double time);
+
+void set_pig_spawn(Scene scene);
+
 #endif /* SCENE_H */
