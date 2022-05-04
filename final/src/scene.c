@@ -4,8 +4,6 @@
 #include <obj/draw.h>
 #include <math.h>
 
-
-
 void init_scene(Scene* scene)
 {
     load_models(scene);

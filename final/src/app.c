@@ -170,10 +170,16 @@ void handle_app_events(App* app)
                 app->scene.easter_egg_P = true;
                 break;
             case SDL_SCANCODE_I:
-                app->scene.easter_egg_I = true;
+                if (app->scene.easter_egg_P)
+                {
+                    app->scene.easter_egg_I = true;
+                }
                 break;
             case SDL_SCANCODE_G:
-                app->scene.easter_egg_G = true;
+                if (app->scene.easter_egg_I)
+                {
+                    app->scene.easter_egg_G = true;
+                }
                 break;
             case SDL_SCANCODE_F1:
                 if (!app->scene.help_visibility) {
