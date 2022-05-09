@@ -4,3 +4,5 @@
 -Easter egg: A "PIG" angol szó sorrendhelyes beírása után megjelenik a malackirály. Egy rakétát is kilőhetünk rá!!
 
 -Help menu: A programhoz tartozó segítség a final mappában található helpmenu.jpg néven
+
+-A programhoz tartozó .obj fileok és képek a tömörített assets mappában találhatóak.
